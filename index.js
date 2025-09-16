@@ -1,6 +1,7 @@
 const express = require("express");
 var app = express();
 const users = require("./sample data/user");
+const chats = require("./sample data/chat.json");
 
 app.get("/", (_, res) => {
   res.send("Hello World!");
@@ -15,22 +16,38 @@ app.get("/users", (_, res) => {
 });
 
 app.get("/chats", (_, res) => {
-  res.send(require("./sample data/chat"));
+  res.send(require("./sample data/chat.json"));
 });
 
-app.post("/send", (req, res) => {
-  const sender = req.query.sender;
-  const receiver = req.query.receiver;
-  const message = req.query.message;
-  const q =
-    "INSERT INTO ( sender, receiver, message, timestamp) VALUES (? NOW())";
-  const values = [sender, receiver, message];
+// app.post("/send", (_, res) => {
+//   const sender = 1;
+//   const receiver = 2;
+//   const message = "Hello, how are you?";
+//   const q =
+//     "INSERT INTO ( sender, receiver, message, timestamp) VALUES (? NOW())";
+//   const values = [sender, receiver, message];
 
-  db.query(q, values, (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: "An error occurred" });
-    }
-    return res.json(data);
-  });
+//   db.query(q, values, (err, data) => {
+//     if (err) {
+//       console.error(err);
+//       return res.status(500).json({ error: "An error occurred" });
+//     }
+//     return res.json(data);
+//   });
+// });
+// Simulating a database with an in-memory array
+
+app.post("/send", (_, res) => {
+  const sender = 1;
+  const receiver = 2;
+  const message = "sapmle message";
+  const newChat = {
+    id: 4,
+    sender,
+    receiver,
+    message,
+    timestamp: new Date().toISOString(),
+  };
+  chats.push(newChat);
+  res.json(newChat);
 });
