@@ -13,3 +13,24 @@ app.listen(8800, function () {
 app.get("/users", (_, res) => {
   res.send(users);
 });
+
+app.get("/chats", (_, res) => {
+  res.send(require("./sample data/chat"));
+});
+
+app.post("/send", (req, res) => {
+  const sender = req.query.sender;
+  const receiver = req.query.receiver;
+  const message = req.query.message;
+  const q =
+    "INSERT INTO ( sender, receiver, message, timestamp) VALUES (? NOW())";
+  const values = [sender, receiver, message];
+
+  db.query(q, values, (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "An error occurred" });
+    }
+    return res.json(data);
+  });
+});
