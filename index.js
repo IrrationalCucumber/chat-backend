@@ -1,5 +1,6 @@
 const express = require("express");
 var app = express();
+require("dotenv").config();
 const users = require("./sample data/user");
 const chats = require("./sample data/chat.json");
 
@@ -51,3 +52,8 @@ app.post("/send", (_, res) => {
   chats.push(newChat);
   res.json(newChat);
 });
+
+//supabase db
+const ChatRoute = require("./ROUTE/ChatRoute.js");
+
+app.use("/", ChatRoute);
