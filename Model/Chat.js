@@ -42,5 +42,21 @@ const Chat = {
       return null;
     }
   },
+  //get chat by convo id
+  getMessagesByID: async (id) => {
+    try {
+      const { data, error } = await supabase
+        .from("CHAT_MESSAGE")
+        .select(`*`)
+        .eq("convo_id", id);
+
+      if (error) throw error;
+
+      return data;
+    } catch (error) {
+      console.error("Error:", error);
+      return null;
+    }
+  },
 };
 module.exports = Chat;

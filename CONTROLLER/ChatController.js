@@ -26,6 +26,18 @@ const ChatController = {
       res.status(500).json({ message: "Internal server error" });
     }
   },
+  //get convo messages
+  fetchMessageByID: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const message = await Chat.getMessagesbyID(id);
+      if (!message) {
+        return res.status(404).json({ message: "Not found" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
 };
 
 module.exports = ChatController;
