@@ -28,7 +28,10 @@ const Chat = {
     try {
       const { data, error } = await supabase
         .from("CHAT_CONVO")
-        .select("*")
+        .select(
+          `*,receiver_id:CHAT_USER!CHAT_CONVO_receiver_id_fkey(user_name),
+          sender_id:CHAT_USER!CHAT_CONVO_sender_id_fkey(user_name)`
+        )
         .eq("sender_id", id);
 
       if (error) throw error;
