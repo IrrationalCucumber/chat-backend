@@ -10,10 +10,26 @@ const supabase = createClient(
 // console.log("Supabase Key:", process.env.SUPABASE_KEY);
 
 const Chat = {
+  //get all convo
   getChat: async () => {
     try {
       const { data, error } = await supabase.from("CHAT_CONVO").select("*");
-      //.eq("sender_id", id);
+
+      if (error) throw error;
+
+      return data;
+    } catch (error) {
+      console.error("Error fetching chat:", error);
+      return null;
+    }
+  },
+  //get convo by id
+  getChatbyID: async (id) => {
+    try {
+      const { data, error } = await supabase
+        .from("CHAT_CONVO")
+        .select("*")
+        .eq("sender_id", id);
 
       if (error) throw error;
 
