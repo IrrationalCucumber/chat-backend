@@ -78,5 +78,17 @@ const Chat = {
       console.error("Error adding:", error);
     }
   },
+  //Initial Update for adding favorite convo
+  updateAsFavorite: async (id) => {
+    try {
+      const { error } = await supabase
+        .from("CHAT_CONVO")
+        .update({ chat_isFavorite: true })
+        .eq("chat_id", id);
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error updating:", error);
+    }
+  },
 };
 module.exports = Chat;
