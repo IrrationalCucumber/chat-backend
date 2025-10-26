@@ -58,5 +58,25 @@ const Chat = {
       return null;
     }
   },
+  //inital func for insertin new message
+  /**
+   * DATA to INSERT
+   * msg_sender_id
+   * msg_content
+   * convo_id
+   */
+  //
+  addMessage: async (text, convoID, senderID) => {
+    try {
+      const { error } = await supabase.from("CHAT_MESSAGE").insert({
+        msg_content: text,
+        convo_id: convoID,
+        msg_sender_id: senderID,
+      });
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error adding:", error);
+    }
+  },
 };
 module.exports = Chat;
