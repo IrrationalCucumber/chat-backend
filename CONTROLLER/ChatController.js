@@ -30,7 +30,7 @@ const ChatController = {
   fetchMessageByID: async (req, res) => {
     const id = req.params.id;
     try {
-      const message = await Chat.getMessagesbyID(id);
+      const message = await Chat.getMessagesByID(id);
       if (!message) {
         return res.status(404).json({ message: "Not found" });
       }
@@ -38,6 +38,18 @@ const ChatController = {
       res.status(500).json({ message: "Internal server error" });
     }
   },
+  //FUNCTION for INSERTING NEW MESSAGE
+  addNewMessage: async (req, res) => {
+    try {
+      const text = req.query.text;
+      const convoID = req.query.convoID;
+      const senderID = req.query.senderID;
+      const message = await Chat.addMessage(text, convoID, senderID);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+  //FUNCTION for UPDATING CONVO as FAVORITE
 };
 
 module.exports = ChatController;
