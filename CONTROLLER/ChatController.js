@@ -50,6 +50,14 @@ const ChatController = {
     }
   },
   //FUNCTION for UPDATING CONVO as FAVORITE
+  setConvoToFavorite: async (req, res) => {
+    try {
+      const id = req.params.id;
+      const message = await Chat.updateAsFavorite(id);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
 };
 
 module.exports = ChatController;
