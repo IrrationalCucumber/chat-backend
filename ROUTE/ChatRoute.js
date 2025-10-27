@@ -1,9 +1,11 @@
 const express = require("express");
-const chatcontoller = require("../CONTROLLER/ChatController.js");
+const ChatController = require("../CONTROLLER/ChatController.js");
 
 const router = express.Router();
 
-router.get("/convos", chatcontoller.fetchChat); // to retrieve chats
-router.get("/chat/:id", chatcontoller.fetchChatByID); // to retrieve chat of user
-router.get("/messages/:id", chatcontoller.fetchMessageByID); //messages
+router.get("/convos", ChatController.fetchChat); // to retrieve chats
+router.get("/chat/:id", ChatController.fetchChatByID); // to retrieve chat of user
+router.get("/messages/:id", ChatController.fetchMessageByID); //messages
+router.get("/send", ChatController.addNewMessage); //ROUTE for INSERTING NEW MESSAFW
+//ROUTE for UPDATE CONVO to FAVORITE
 module.exports = router;
