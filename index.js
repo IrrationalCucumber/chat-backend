@@ -56,4 +56,4 @@ app.post("/send", (_, res) => {
 //supabase db
 const ChatRoute = require("./ROUTE/ChatRoute.js");
 
-app.use("/", ChatRoute);
+app.use("/route/", ChatRoute);
